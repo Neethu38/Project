@@ -1,0 +1,37 @@
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.HashMap;
+public class HashMapp{
+public static void main(String [] args)
+
+try{
+HttpClient httpClient = HttpClientBuilder.create().build();
+HttpGet request = new HttpGet("https://fastag-internal.parkzap.com/account/mockable_test/");
+HttpResponse response = httpClient.execute(request);
+
+String jsonResponse= EntityUtils.toString(response.getEntity());
+ObjectMapper objectMapper = new ObjectMapper();
+HashMap<String,Object> updatedHashMap = obje tMapper.readValue(jsonResponse, HashMap.class);
+System.out.println(updatedHashMap);
+Scanner sc=new Scanner(System.in);
+String s=sc.nextLine();
+int number=-1;
+if(updatedHashMap.contains(s))
+ number=updatedHashMap.get(s);
+if(number!=-1)
+System.out.println(number);
+else
+System.out.println("Invalid String");
+
+
+}catch(Exception e){
+e.printStacktrace();
+}
+}
+}
